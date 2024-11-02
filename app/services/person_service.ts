@@ -1,7 +1,11 @@
 import RowNotFoundException from "#exceptions/row_not_found_exception"
 import db from "@adonisjs/lucid/services/db"
+import { inject } from "@adonisjs/core"
+import ResultService from "#helpers/result_helper"
 
+@inject()
 export default class PersonService {
+
   async fetchAll(query_search: any) {
     const table = 'people'
     const page = query_search.page || 1
@@ -31,15 +35,12 @@ export default class PersonService {
       throw new RowNotFoundException()
     }
 
-    return {
-      status: 200,
-      message: 'Success',
+    return ResultService.successMessage({
       data: {
         data: persons.rows,
         meta: total_pages.rows[0]
       },
-
-    }
+    })
   }
 
   async fetchSingle(id: number) {
