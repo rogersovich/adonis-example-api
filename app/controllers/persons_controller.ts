@@ -10,8 +10,9 @@ export default class PersonsController {
     private personService: PersonService
   ) {}
 
-  all() {
-    const persons = this.personService.fetchAll()
+  all({request}: HttpContext) {
+    const qs = request.qs()
+    const persons = this.personService.fetchAll(qs)
 
     return persons
   }

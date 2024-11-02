@@ -8,8 +8,8 @@ export default class RowNotFoundException extends Exception {
   async handle(error: this, ctx: HttpContext) {
     ctx.response.status(error.status).send({
       status: error.status,
-      code: error.code,
       message: error.message,
+      data: null
     })
   }
 }
