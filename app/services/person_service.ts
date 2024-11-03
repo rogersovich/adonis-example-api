@@ -76,7 +76,9 @@ export default class PersonService {
     })
 
     if(persons.rows.length === 0) {
-      throw new RowNotFoundException()
+      return ResultService.successMessage({
+        data: null,
+      })
     }
 
     return ResultService.successMessage({
