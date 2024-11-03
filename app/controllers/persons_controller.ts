@@ -17,6 +17,14 @@ export default class PersonsController {
     return persons
   }
 
+  allPost({request}: HttpContext) {
+    const body = request.body() as any
+
+    const persons = this.personService.fetchAllPost(body)
+
+    return persons
+  }
+
   show({ params }: HttpContext) {
     const {id}  = params
     const person = this.personService.fetchSingle(+id)
