@@ -19,5 +19,6 @@ router.get('/', async () => {
 router.group(() => {
   router.get('persons', [PersonsController, 'all']).as('persons.index')
   router.post('persons', [PersonsController, 'allPost'])
+  router.post('persons-infinite', [PersonsController, 'allPostInfinited'])
   router.get('persons/:id', [PersonsController, 'show'])
 }).prefix('/api')

@@ -3,6 +3,7 @@
 import { inject } from "@adonisjs/core"
 import PersonService from "#services/person_service"
 import { HttpContext } from "@adonisjs/core/http"
+import GeneralHelper from "#helpers/general_helper"
 
 @inject()
 export default class PersonsController {
@@ -17,10 +18,20 @@ export default class PersonsController {
     return persons
   }
 
-  allPost({request}: HttpContext) {
+  async allPost({request}: HttpContext) {
     const body = request.body() as any
 
     const persons = this.personService.fetchAllPost(body)
+
+    await GeneralHelper.executeTimedQuery(persons)
+
+    return persons
+  }
+
+  allPostInfinited({request}: HttpContext) {
+    const body = request.body() as any
+
+    const persons = this.personService.fetchInfiniteQuery(body)
 
     return persons
   }
